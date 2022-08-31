@@ -3,28 +3,25 @@
  * https://jestjs.io/docs/configuration
  */
 const { TextDecoder, TextEncoder } = require('util')
+// const { Agent } = require('https')
 
 module.exports = {
   globals: {
     TextDecoder: TextDecoder,
-    TextEncoder: TextEncoder
+    TextEncoder: TextEncoder,
+    // Agent
   },
   transform: {
-    'node_modules/(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto|multiformats|util|cborg|ipfs-unixfs)/.+\\.(j|t)sx?$': 'babel-jest'
+    'node_modules/(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|uint8arrays|@smontero/hashed-confidential-docs|ipfs-http-client|ipfs-core-utils|multiformats|util|cborg|ipfs-unixfs)/.+\\.(j|t)sx?$': 'babel-jest'
     // '/\\.[jt]sx?$/': 'babel-jest'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto|multiformats|util|cborg|ipfs-unixfs)/.*)'
+    'node_modules/(?!(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|uint8arrays|@smontero/hashed-confidential-docs|ipfs-http-client|ipfs-core-utils|multiformats|util|cborg|ipfs-unixfs)/.*)'
   ],
   // transform: {
   //   '\\.js$': './node_modules/babel-jest'
   // },
   // testMatch: ['**/__tests__/**/*.js?(x)', '**/?(*.)+(test).ts?(x)'],
-  verbose: true,
-  moduleFileExtensions: [
-    'js',
-    'jsx'
-  ],
   // moduleDirectories: [
   //   'node-modules'
   // ],
@@ -44,7 +41,8 @@ module.exports = {
   // cacheDirectory: "/private/var/folders/93/tj8vd4tx0w3by4qkvqp95r340000gn/T/jest_dx",
 
   // Automatically clear mock calls, instances, contexts and results before every test
-  clearMocks: true,
+  clearMocks: false,
+  resetMocks: false,
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: false,

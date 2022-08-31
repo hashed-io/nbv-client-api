@@ -1,5 +1,5 @@
 // See HashedConfidentialDocs on https://github.com/hashed-io/hashed-confidential-docs-client-api
-// const { Keyring } = require('@polkadot/api')
+const { Keyring } = require('@polkadot/api')
 
 // import {
 const {
@@ -12,7 +12,7 @@ const {
   BalancesApi
 } = require('@smontero/hashed-confidential-docs')
 // } from '@smontero/hashed-confidential-docs'
-// } = require('../../../../hashed-confidential-docs-client-api/src/index')
+// } = require('../../../hashed-confidential-docs-client-api/src/index')
 
 class ConfidentialDocs {
   constructor ({ ipfsURL, chainURI, appName, signer, ipfsAuthHeader }) {
@@ -25,14 +25,13 @@ class ConfidentialDocs {
   async init () {
     await this._polkadot.connect()
 
-    // const keyring = new Keyring()
-    const keyring = '1'
+    const keyring = new Keyring()
     const faucet = new LocalAccountFaucet({
       balancesApi: new BalancesApi(this._polkadot._api, () => {}),
       signer: keyring.addFromUri(this._signer, {}, 'sr25519'),
       amount: 1000000000
     })
-
+    console.log('HashedConfidentialDocs', this._ipfsURL)
     const hcd = new HashedConfidentialDocs({
       ipfsURL: this._ipfsURL,
       polkadot: this._polkadot,
