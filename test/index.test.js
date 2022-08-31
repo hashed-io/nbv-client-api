@@ -1,6 +1,6 @@
 const PolkadotApi = require('../src/model/polkadotApi')
 const { NbvStorageApi } = require('../src/model/polkadot-pallets')
-const ConfidentialDocs = require('./confidentialDocs')
+const ConfidentialDocs = require('../src/model/confidentialDocs')
 
 jest.setTimeout(40000)
 let polkadotApi
@@ -39,5 +39,4 @@ describe('Connect with hashedChain', () => {
     // })
     // expect(confidentialDocs).toBeDefined()
   })
-
 })

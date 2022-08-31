@@ -2,12 +2,20 @@
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
+const { TextDecoder, TextEncoder } = require('util')
 
 module.exports = {
+  globals: {
+    TextDecoder: TextDecoder,
+    TextEncoder: TextEncoder
+  },
   transform: {
-    'node_modules/(data-uri-to-buffer|node-fetch|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uuid|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto)/.+\\.(j|t)sx?$': 'babel-jest'
+    'node_modules/(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto|multiformats|util|cborg|ipfs-unixfs)/.+\\.(j|t)sx?$': 'babel-jest'
     // '/\\.[jt]sx?$/': 'babel-jest'
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto|multiformats|util|cborg|ipfs-unixfs)/.*)'
+  ],
   // transform: {
   //   '\\.js$': './node_modules/babel-jest'
   // },
@@ -20,9 +28,9 @@ module.exports = {
   // moduleDirectories: [
   //   'node-modules'
   // ],
-  transformIgnorePatterns: [
-    'node_modules/(?!(data-uri-to-buffer|node-fetch|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uuid|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto)/.*)'
-  ],
+  // transformIgnorePatterns: [
+  //   'node_modules/(?!(data-uri-to-buffer|node-fetch|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uuid|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto)/.*)'
+  // ],
   setupFiles: [
     'jest-localstorage-mock'
   ],
