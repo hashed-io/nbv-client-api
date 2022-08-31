@@ -9,14 +9,15 @@ module.exports = {
   globals: {
     TextDecoder: TextDecoder,
     TextEncoder: TextEncoder,
+    window: { addEventListener () {} }
     // Agent
   },
   transform: {
-    'node_modules/(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|uint8arrays|@smontero/hashed-confidential-docs|ipfs-http-client|ipfs-core-utils|multiformats|util|cborg|ipfs-unixfs)/.+\\.(j|t)sx?$': 'babel-jest'
+    'node_modules/(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|uint8arrays|@smontero|ipfs-http-client|ipfs-core-utils|multiformats|util|cborg|ipfs-unixfs)/.+\\.(j|t)sx?$': 'babel-jest'
     // '/\\.[jt]sx?$/': 'babel-jest'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|uint8arrays|@smontero/hashed-confidential-docs|ipfs-http-client|ipfs-core-utils|multiformats|util|cborg|ipfs-unixfs)/.*)'
+    'node_modules/(?!(data-uri-to-buffer|node-fetch|uuid|@ipld|fetch-blob|formdata-polyfill|uint8arrays|@smontero|ipfs-http-client|ipfs-core-utils|multiformats|util|cborg|ipfs-unixfs)/.*)'
   ],
   // transform: {
   //   '\\.js$': './node_modules/babel-jest'
@@ -172,7 +173,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jsdom'
+  // testEnvironment: 'jsdom'
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
