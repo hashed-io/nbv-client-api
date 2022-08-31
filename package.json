@@ -10,15 +10,27 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^28.1.6",
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/preset-env": "^7.18.10",
+    "@types/jest": "^29.0.0",
+    "babel-jest": "^29.0.1",
+    "dotenv": "^16.0.2",
+    "eslint": "^8.23.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1",
     "jest": "^28.1.3",
-    "jest-environment-jsdom": "^28.1.3"
+    "jest-environment-jsdom": "^29.0.1",
+    "jest-localstorage-mock": "^2.4.22"
   },
   "dependencies": {
-    "@polkadot/api": "^9.1.1",
+    "@polkadot/api": "^9.2.4",
     "@polkadot/extension-dapp": "^0.44.4",
     "@polkadot/keyring": "^10.1.3",
     "@polkadot/util": "^10.1.3",
-    "@polkadot/util-crypto": "^10.1.3"
+    "@polkadot/util-crypto": "^10.1.3",
+    "@smontero/hashed-confidential-docs": "^0.1.8"
   }
 }

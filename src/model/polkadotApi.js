@@ -38,21 +38,22 @@ class PolkadotApi {
       await new Promise((resolve, reject) => {
         let failedCount = 0
         api.on('connected', v => {
-          console.warn('Event detected connected', v)
+          // console.warn('Event detected connected', v)
         })
         api.on('disconnected', v => {
-          console.warn('Event detected disconnected', v)
+          // console.warn('Event detected disconnected', v)
         })
         api.on('error', v => {
           console.warn('Event detected error', failedCount, v)
           if (failedCount <= 10) {
             failedCount++
           } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
             reject(`An error ocurred trying to connect at ${this.chainURI}`)
           }
         })
         api.on('ready', async (v) => {
-          console.warn('Event detected ready', v)
+          // console.warn('Event detected ready', v)
           resolve()
         })
       })

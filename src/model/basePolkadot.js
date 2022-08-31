@@ -1,4 +1,4 @@
-class BasePolkadotApi {
+class BasePolkadot {
   /**
    * Class constructor
    * @param {PolkadotApi} polkadotApi Instance from PolkadotApi class
@@ -216,4 +216,4 @@ class BasePolkadotApi {
 }
 
 // export default BasePolkadotApi
-module.exports = BasePolkadotApi
+module.exports = BasePolkadot

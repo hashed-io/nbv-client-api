@@ -4,6 +4,28 @@
  */
 
 module.exports = {
+  transform: {
+    'node_modules/(data-uri-to-buffer|node-fetch|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uuid|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto)/.+\\.(j|t)sx?$': 'babel-jest'
+    // '/\\.[jt]sx?$/': 'babel-jest'
+  },
+  // transform: {
+  //   '\\.js$': './node_modules/babel-jest'
+  // },
+  // testMatch: ['**/__tests__/**/*.js?(x)', '**/?(*.)+(test).ts?(x)'],
+  verbose: true,
+  moduleFileExtensions: [
+    'js',
+    'jsx'
+  ],
+  // moduleDirectories: [
+  //   'node-modules'
+  // ],
+  transformIgnorePatterns: [
+    'node_modules/(?!(data-uri-to-buffer|node-fetch|fetch-blob|formdata-polyfill|@smontero/hashed-confidential-docs|uuid|uint8arrays|ipfs-http-client|ipfs-core-utils|@smontero/hashed-crypto)/.*)'
+  ],
+  setupFiles: [
+    'jest-localstorage-mock'
+  ],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -23,7 +45,7 @@ module.exports = {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -144,7 +166,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom'
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -192,4 +214,4 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}
