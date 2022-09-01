@@ -4,7 +4,7 @@
   "description": "Client API that handles calls and queries to interact with NBV pallet",
   "main": "src/index.js",
   "scripts": {
-    "test": "DOTENV_CONFIG_PATH=./.env.test jest --setupFiles dotenv/config"
+    "test": "DOTENV_CONFIG_PATH=./.env.test jest --setupFiles dotenv/config --watch"
   },
   "keywords": [],
   "author": "",

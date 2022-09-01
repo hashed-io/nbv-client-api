@@ -22,6 +22,10 @@ class ConfidentialDocs {
     this._ipfsAuthHeader = ipfsAuthHeader
   }
 
+  getPolkadotApi () {
+    return this._polkadot
+  }
+
   async init () {
     await this._polkadot.connect()
 
@@ -31,7 +35,6 @@ class ConfidentialDocs {
       signer: keyring.addFromUri(this._signer, {}, 'sr25519'),
       amount: 1000000000
     })
-    console.log('HashedConfidentialDocs', this._ipfsURL)
     const hcd = new HashedConfidentialDocs({
       ipfsURL: this._ipfsURL,
       polkadot: this._polkadot,
@@ -40,6 +43,10 @@ class ConfidentialDocs {
     })
 
     this._hcd = hcd
+  }
+
+  disconnect () {
+    this._polkadot.disconnect()
   }
 
   async ssoGoogleLogin ({ ssoProvider, ssoUserId, email, clientId }) {

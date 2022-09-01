@@ -26,9 +26,9 @@ class BasePolkadot {
     return new Promise(async (resolve, reject) => {
       try {
         if (params) {
-          unsub = await this.polkadotApi.api.tx[this.palletName][extrinsicName](...params).signAndSend(signer, (e) => this.handlerTXResponse(e, resolve, reject, unsub))
+          unsub = await this.polkadotApi._api.tx[this.palletName][extrinsicName](...params).signAndSend(signer, (e) => this.handlerTXResponse(e, resolve, reject, unsub))
         } else {
-          unsub = await this.polkadotApi.api.tx[this.palletName][extrinsicName]().signAndSend(signer, (e) => this.handlerTXResponse(e, resolve, reject, unsub))
+          unsub = await this.polkadotApi._api.tx[this.palletName][extrinsicName]().signAndSend(signer, (e) => this.handlerTXResponse(e, resolve, reject, unsub))
         }
       } catch (e) {
         reject(e)
@@ -45,7 +45,8 @@ class BasePolkadot {
    * @returns Query response or unsubscribe function from polkadot api
    */
   async exQuery (queryName, params, subTrigger) {
-    return this.polkadotApi.api.query[this.palletName][queryName](...params, subTrigger)
+    // console.log('polkadotApi', this.polkadotApi._api)
+    return this.polkadotApi._api.query[this.palletName][queryName](...params, subTrigger)
   }
 
   /**
@@ -57,7 +58,7 @@ class BasePolkadot {
    * @returns Query response or unsubscribe function from polkadot api
    */
   async exMultiQuery (queryName, params, subTrigger) {
-    return this.polkadotApi.api.query[this.palletName][queryName].multi(params, subTrigger)
+    return this.polkadotApi._api.query[this.palletName][queryName].multi(params, subTrigger)
   }
 
   /**
@@ -71,16 +72,16 @@ class BasePolkadot {
   async exEntriesQuery (queryName, params, pagination, subTrigger) {
     console.log('exEntriesQuery params', { queryName, params, pagination, subTrigger })
     if (!params) {
-      return this.polkadotApi.api.query[this.palletName][queryName].entries()
+      return this.polkadotApi._api.query[this.palletName][queryName].entries()
     }
     if (pagination) {
-      return this.polkadotApi.api.query[this.palletName][queryName].entriesPaged({
+      return this.polkadotApi._api.query[this.palletName][queryName].entriesPaged({
         pageSize: pagination.pageSize || 10,
         args: [...params],
         startKey: pagination.startKey || null
       })
     }
-    return this.polkadotApi.api.query[this.palletName][queryName].entries(...params)
+    return this.polkadotApi._api.query[this.palletName][queryName].entries(...params)
   }
 
   /**
