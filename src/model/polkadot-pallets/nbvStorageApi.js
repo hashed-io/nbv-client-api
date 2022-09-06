@@ -6,6 +6,14 @@ class NbvStorageApi extends BasePolkadot {
   }
 
   /**
+   * @description Set signer for external wallet
+   * @param {String} signer Polkadot address
+   */
+  setSigner (signer) {
+    this._signer = signer
+  }
+
+  /**
    * @name getXpubByUser
    * @description Get Xpub by user
    * @param {String} user User address
@@ -14,7 +22,6 @@ class NbvStorageApi extends BasePolkadot {
    * { id, xpub }
    */
   getXpubByUser (user, subTrigger) {
-    // return this.polkadotApi.api.query.nbvStorage.xpubsByOwner(user, subTrigger)
     return this.exQuery('xpubsByOwner', [user], subTrigger)
   }
 
@@ -27,7 +34,6 @@ class NbvStorageApi extends BasePolkadot {
    * { id, xpub }
    */
   getXpubById (xpubId, subTrigger) {
-    // return this.polkadotApi.api.query.nbvStorage.xpubs(xpubId, subTrigger)
     return this.exQuery('xpubs', [xpubId], subTrigger)
   }
 
@@ -40,7 +46,6 @@ class NbvStorageApi extends BasePolkadot {
    */
   getVaultsByUser ({ user, subTrigger }) {
     return this.exQuery('vaultsBySigner', [user], subTrigger)
-    // return this.polkadotApi.api.derive.nbvStorage.vaults(user)
   }
 
   /**
@@ -52,20 +57,21 @@ class NbvStorageApi extends BasePolkadot {
    * [{ id, description, descriptor, owner, cosigners }]
    */
   getVaultsById ({ Ids, subTrigger }) {
-    // return this.exQuery('vaults', Ids, subTrigger)
     return this.exMultiQuery('vaults', Ids, subTrigger)
-    // return this.polkadotApi.api.derive.nbvStorage.vaults(user)
   }
 
   /**
    * @name createVault
    * @description Create a new vault
-   * @param {String} user user address
    * @returns undefined
    */
-  async createVault ({ threshold, description, cosigners, includeOwnerAsCosigner, user }) {
+  async createVault ({ threshold, description, cosigners, includeOwnerAsCosigner }) {
     // Call Extrinsic
-    return this.callTx('createVault', user, [threshold, description, includeOwnerAsCosigner, cosigners])
+    return this.callTx({
+      extrinsicName: 'createVault',
+      signer: this._signer,
+      params: [threshold, description, includeOwnerAsCosigner, cosigners]
+    })
   }
 
   /**
@@ -74,46 +80,58 @@ class NbvStorageApi extends BasePolkadot {
   * @param {String} id Vault id
   * @returns undefined
   */
-  async removeVault ({ id, user }) {
-    // Call Extrinsic
-    return this.callTx('removeVault', user, [id])
+  async removeVault ({ id }) {
+    return this.callTx({
+      extrinsicName: 'removeVault',
+      signer: this._signer,
+      params: [id]
+    })
   }
 
   /**
    * @name submitXPUB
    * @description Set XPUB for a user
-   * @param {String} user user address
+   * @param {String} XPUB XPUB String
    * @returns undefined
    */
-  async submitXPUB ({ user, XPUB }) {
+  async submitXPUB ({ XPUB }) {
     // Call Extrinsic
-    return this.callTx('setXpub', user, [XPUB])
+    return this.callTx({
+      extrinsicName: 'setXpub',
+      signer: this._signer,
+      params: [XPUB]
+    })
   }
 
   /**
    * @name removeXpub
    * @description Remove XPUB for a user
-   * @param {String} user user address
    * @returns undefined
    */
-  async removeXpub ({ user }) {
+  async removeXpub () {
     // Call Extrinsic
-    return this.callTx('removeXpub', user)
+    return this.callTx({
+      extrinsicName: 'removeXpub',
+      signer: this._signer
+    })
   }
 
   /**
    * @name createProposal
    * @description Create new proposal for a vault
-   * @param {String} signer user address to sign
    * @param {String} vaultId vault Id
    * @param {String} recipientAddress user address to receive BTC
    * @param {String} satoshiAmount Satoshi amount
    * @returns undefined
    */
-  async createProposal ({ vaultId, recipientAddress, satoshiAmount, description, signer }) {
+  async createProposal ({ vaultId, recipientAddress, satoshiAmount, description }) {
     // Call Extrinsic
     const params = [vaultId, recipientAddress, satoshiAmount, description]
-    return this.callTx('propose', signer, params)
+    return this.callTx({
+      extrinsicName: 'propose',
+      signer: this._signer,
+      params
+    })
   }
 
   /**
@@ -144,43 +162,55 @@ class NbvStorageApi extends BasePolkadot {
    * @name removeProposal
    * @description Remove a proposal
    * @param {String} proposalId Proposal Id
-   * @param {String} signer User address to sign
    * @returns
    */
-  removeProposal ({ proposalId, signer }) {
-    return this.callTx('removeProposal', signer, [proposalId])
+  removeProposal ({ proposalId }) {
+    return this.callTx({
+      extrinsicName: 'removeProposal',
+      signer: this._signer,
+      params: [proposalId]
+    })
   }
 
   /**
    * @description Save signed PSBT for a user
    * @param {String} proposalId Proposal Id
    * @param {String} psbt Payload PSBT
-   * @param {String} signer User address to sign
    * @returns
    */
-  savePsbt ({ proposalId, psbt, signer }) {
-    return this.callTx('savePsbt', signer, [proposalId, psbt])
+  savePsbt ({ proposalId, psbt }) {
+    return this.callTx({
+      extrinsicName: 'savePsbt',
+      signer: this._signer,
+      params: [proposalId, psbt]
+    })
   }
 
   /**
    * @description Finalize PSBT
    * @param {String} proposalId Proposal Id
    * @param {String} broadcast Boolean
-   * @param {String} signer User address to sign
    * @returns
    */
-  finalizePsbt ({ proposalId, broadcast = false, signer }) {
-    return this.callTx('finalizePsbt', signer, [proposalId, broadcast])
+  finalizePsbt ({ proposalId, broadcast = false }) {
+    return this.callTx({
+      extrinsicName: 'finalizePsbt',
+      signer: this._signer,
+      params: [proposalId, broadcast]
+    })
   }
 
   /**
    * @description Broadcast PSBT
    * @param {String} proposalId Proposal Id
-   * @param {String} signer User address to sign
    * @returns
    */
-  broadcastPsbt ({ proposalId, signer }) {
-    return this.callTx('broadcastPsbt', signer, [proposalId])
+  broadcastPsbt ({ proposalId }) {
+    return this.callTx({
+      extrinsicName: 'broadcastPsbt',
+      signer: this._signer,
+      params: [proposalId]
+    })
   }
 }
 

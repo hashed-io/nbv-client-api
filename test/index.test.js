@@ -1,5 +1,5 @@
 // const PolkadotApi = require('../src/model/polkadotApi')
-const ConfidentialDocs = require('../src/model/confidentialDocs')
+const ConfidentialDocs = require('./utils/confidentialDocs')
 const { NbvStorageApi } = require('../src/model/polkadot-pallets')
 global.window = { addEventListener () {} }
 
