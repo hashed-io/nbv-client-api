@@ -1,6 +1,6 @@
 {
   "name": "@jmgayosso/nbv-client-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Client API that handles calls and queries to interact with NBV pallet",
   "main": "src/index.js",
   "scripts": {
