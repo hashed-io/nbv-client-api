@@ -212,6 +212,62 @@ class NbvStorageApi extends BasePolkadot {
       params: [proposalId]
     })
   }
+
+  /**
+   * @description Create proof of reserves
+   * @param {String} vaultId Vault Id
+   * @param {String} message message
+   * @param {String} psbt psbt
+   * @returns
+   */
+  createProofOfReserves ({ vaultId, message, psbt }) {
+    return this.callTx({
+      extrinsicName: 'createProof',
+      signer: this._signer,
+      params: [vaultId, message, psbt]
+    })
+  }
+
+  /**
+   * @description Save Proof Of Reserves PSBTs
+   * @param {String} vaultId Vault Id
+   * @param {String} psbt psbt
+   * @param {Boolean} isFinalized falg
+   * @returns
+   */
+  saveProofOfReservesPSBT ({ vaultId, psbt }) {
+    return this.callTx({
+      extrinsicName: 'saveProofPsbt',
+      signer: this._signer,
+      params: [vaultId, psbt]
+    })
+  }
+
+  /**
+   * @description Finalize proof of reserves
+   * @param {String} vaultId Vault Id
+   * @param {String} psbt psbt
+   * @returns
+   */
+  finalizeProofOfReserves ({ vaultId, psbt }) {
+    return this.callTx({
+      extrinsicName: 'finalizeProof',
+      signer: this._signer,
+      params: [vaultId, psbt]
+    })
+  }
+
+  /**
+   * @name getProofOfReservesByVault
+   * @description Get all proof of reserves for a vault
+   * @param {String} vaultId Vault Id
+   * @param {Function} subTrigger Function to trigger when subscription detect changes
+   * @returns {Array} array of vaults Id
+   * [{ id }]
+   */
+  getProofOfReservesByVault ({ vaultId, subTrigger }) {
+    return this.exQuery('proofOfReserves', [vaultId], subTrigger)
+  }
 }
 
 // export default NbvStorageApi

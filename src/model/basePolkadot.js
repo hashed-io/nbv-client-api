@@ -66,7 +66,7 @@ class BasePolkadot {
    * @returns Query response or unsubscribe function from polkadot api
    */
   async exEntriesQuery (queryName, params, pagination, subTrigger) {
-    console.log('exEntriesQuery params', { queryName, params, pagination, subTrigger })
+    // console.log('exEntriesQuery params', { queryName, params, pagination, subTrigger })
     if (!params) {
       return this.polkadot._api.query[this.palletName][queryName].entries()
     }
@@ -95,14 +95,14 @@ class BasePolkadot {
       type: 'listening'
     })
     const { events = [], status } = e
-    console.log('events', events)
-    console.log('status', status)
+    // console.log('events', events)
+    // console.log('status', status)
     if (status.isFinalized || status.isInBlock) {
       // console.log(`Transaction included at blockHash ${status.asFinalized}`)
 
       // Loop through Vec<EventRecord> to display all events
       events.forEach(({ phase, event: { data, method, section } }) => {
-        console.log(`\t' ${phase}: ${section}.${method}:: ${data}`)
+        // console.log(`\t' ${phase}: ${section}.${method}:: ${data}`)
       })
 
       events.filter(({ event: { section } }) => section === 'system').forEach(({ event: { method, data } }) => {
@@ -123,13 +123,13 @@ class BasePolkadot {
           }
 
           // console.error('errorInfo', errorInfo)
-          console.log('unsub', unsub)
+          // console.log('unsub', unsub)
           unsub()
           reject(`Extrinsic failed: ${errorInfo}`)
           // const mod = data[0].asModule
         } else if (method === 'ExtrinsicSuccess') {
-          console.log('ExtrinsicSuccess', data)
-          console.log('unsub', unsub)
+          // console.log('ExtrinsicSuccess', data)
+          // console.log('unsub', unsub)
           unsub()
           resolve(data)
           // txSuccessCb(result);
