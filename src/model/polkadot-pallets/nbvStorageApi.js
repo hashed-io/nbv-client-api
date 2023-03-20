@@ -229,17 +229,31 @@ class NbvStorageApi extends BasePolkadot {
   }
 
   /**
-   * @description Create proof of reserves
+   * @description Save Proof Of Reserves PSBTs
    * @param {String} vaultId Vault Id
    * @param {String} psbt psbt
    * @param {Boolean} isFinalized falg
    * @returns
    */
-  saveProofOfReservesPSBT ({ vaultId, psbt, isFinalized = false }) {
+  saveProofOfReservesPSBT ({ vaultId, psbt }) {
     return this.callTx({
       extrinsicName: 'saveProofPsbt',
       signer: this._signer,
-      params: [vaultId, psbt, isFinalized]
+      params: [vaultId, psbt]
+    })
+  }
+
+  /**
+   * @description Finalize proof of reserves
+   * @param {String} vaultId Vault Id
+   * @param {String} psbt psbt
+   * @returns
+   */
+  finalizeProofOfReserves ({ vaultId, psbt }) {
+    return this.callTx({
+      extrinsicName: 'finalizeProof',
+      signer: this._signer,
+      params: [vaultId, psbt]
     })
   }
 
